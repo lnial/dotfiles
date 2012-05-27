@@ -2,7 +2,17 @@
 alias la="ls -a"
 alias lf="ls -F"
 alias ll="ls -l"
+alias lt="tree"
 alias lll="ls -l|less"
+
+alias ev='vim ~/.vimrc'
+alias gvim='open -a MacVim.app'
+alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
+alias vi='vim'
+alias tmux='/opt/local/bin/tmux'
+alias top='/opt/local/bin/htop'
+alias mongod='~/Library/mongodb/bin/mongod --dbpath=/Users/lnial/Library/mongodb/data &'
+alias tree='tree -p'
 
 # process
 alias j="jobs -l"
@@ -30,16 +40,17 @@ alias 'mn'='make native-code'
 alias 'mc'='make clean'
 
 # screen
-alias s='screen -U'
-alias sc='screen -S main'
-alias sn='screen'
-alias sl='screen -ls'
-alias sr='screen -r main'
-alias srr='screen -U -D -RR'
+#alias s='screen -U'
+#alias sc='screen -S main'
+#alias sn='screen'
+#alias sl='screen -ls'
+#alias sr='screen -r main'
+#alias srr='screen -U -D -RR'
 
 # tmux
 alias tm='tmux'
-alias tma='tmux attach'
+alias ta='tmux attach'
+alias td='tmux detach'
 alias tml='tmux list-window'
 
 alias pon='predict-on'
@@ -93,14 +104,7 @@ extract () {
       echo "'$1' is not a valid file!"
   fi
 }
-alias ex='extract'
-
-alias ev='vim ~/.vimrc'
-
-alias gvim='open -a MacVim.app'
-alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
-alias vi='vim'
-alias tmux='/opt/local/bin/tmux'
-alias top='/opt/local/bin/htop'
-
-
+alias ex='exit'
+alias py='python'
+#alias gcc='/opt/local/bin/gcc'
+#alias llvm-gcc-4.2='/opt/local/bin/gcc'

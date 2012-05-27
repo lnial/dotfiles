@@ -67,6 +67,7 @@ set softtabstop=0       "<Tab>を押した時に挿入される空白の量(0:ts
 set shiftround          "インデントを'shiftwidth' の値の倍数に丸める
 "Escの2回押しでハイライト消去
 nmap <ESC><ESC> ;nohlsearch<CR><ESC>
+nmap ,w :cw<CR>
 
 " 補完候補の色づけ for vim7
 "hi Pmenu        ctermfg=Black ctermbg=Grey
@@ -102,9 +103,9 @@ nmap g* g*zz
 nmap g# g#zz
 
 " date/time
-inoremap ,date <C-R>=strftime('%Y/%m/%d %H:%M:%S') by lnial<CR>
-inoremap ,time <C-R>=strftime('%H:%M')<CR>
-inoremap ,w3cd <C-R>=strftime('%Y-%m-%dT%H:%M:%S+09:00')<CR>
+inoremap ,date <C-R>=strftime('%Y/%m/%d %H:%M:%S')<CR>
+"inoremap ,time <C-R>=strftime('%H:%M')<CR>
+"inoremap ,w3cd <C-R>=strftime('%Y-%m-%dT%H:%M:%S+09:00')<CR>
 
 
 "windowsのgvimで日本語入力を使いやすくする[http://d.hatena.ne.jp/fuenor/20090416/1239834980]
@@ -126,6 +127,8 @@ nnoremap ,s :source ~/.vimrc<CR>
 nnoremap ,t :Tlist<CR>
 nnoremap ,m :make<CR>
 nnoremap <silent> <Leader>/ :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
+nnoremap <silent> <Leader>g :vimgrep /main/j **/*.
+nnoremap <silent> <Leader>o :!open -a iTerm ./<CR>
 "folding
 nnoremap <Leader>z zMzvzz
 
@@ -227,6 +230,10 @@ Bundle 'git://github.com/Lokaltog/vim-powerline.git'
 Bundle 'git://github.com/larssmit/vim-getafe.git'
 Bundle 'git://github.com/Shougo/vimproc.git'
 Bundle 'TaskList.vim'
+Bundle 'git://github.com/scrooloose/syntastic.git'
+Bundle 'git://github.com/hotoo/template.vim.git'
+Bundle 'git://github.com/sjl/vitality.vim.git'
+Bundle 'sontek/rope-vim'
 
 
 "Bundle ''
@@ -318,6 +325,7 @@ nnoremap ,<C-r>  :<C-u>Unite file_mru<CR>
 nnoremap ,<C-b>  :<C-u>Unite buffer <CR>
 nnoremap ,<C-d>  :<C-u>Unite file<CR>
 nnoremap ,\  :<C-u>Unite buffer <CR>
+nnoremap [I  :<C-u>UniteWithCursorWord -no-quit line<CR>
 "nnoremap <silent> <Leader>b :<C-u>Unite bookmark<CR>
 "nnoremap <silent> <Leader>u  :<C-u>Unite buffer file_mru bookmark file<CR>
 nnoremap <Leader>f  :<C-u>Unite file_rec -input=
@@ -473,5 +481,16 @@ hi IndentGuidesEven guibg = green ctermbg = 4
 "tasklist.vim
 "------------------------------------
 nnorem ,l :TaskList<CR>
+
+"------------------------------------
+"pydoc.vim
+"------------------------------------
+let g:pydoc_cmd  =  "/usr/bin/pydoc"
+
+"------------------------------------
+"syntastic.vim
+"------------------------------------
+let g:syntastic_enable_signs = 1
+let g:syntastic_auto_loc_list = 2
 
 "}}}

@@ -658,19 +658,38 @@ function __rm_single_file(){
 #[ -f ~/.zshrc.local ] && source ~/.zshrc.local
 #
 #EOF
+#
+export LC_ALL=en_US.UTF-8 
+export LANG=en_US.UTF-8
+alias hg="hg --encoding=utf-8"
+
+export http_proxy="http://192.168.2.1/proxy.pac"
+export http_proxy="http://proxy.ritsumei.ac.jp:3128"
+export https_proxy="https://proxy.ritsumei.ac.jp:443"
+export ftp_proxy="http://proxy.ritsumei.ac.jp:3128"
 
 
-#export http_proxy  =  "http://192.168.2.1/proxy.pac"
-###export http_proxy  =  "http://proxy.ritsumei.ac.jp:3128"
-###export https_proxy  =  "https://proxy.ritsumei.ac.jp:443"
-###export ftp_proxy  =  "http://proxy.ritsumei.ac.jp:3128"
-##export PATH  =  $PATH:/Applications/android-sdk-mac_86/platform-tools
+##export PATH=$PATH:/Applications/android-sdk-mac_86/platform-tools
 export PATH="/opt/local/bin:/opt/local/sbin:${PATH}"
 export PATH="/usr/local/mysql/bin/:${PATH}"
 export PATH="/usr/local/bin:${PATH}"
 export PATH="/Users/lnial/bin:${PATH}"
 export PATH="~/lib/pypy/bin:${PATH}"
+export PATH="~/Library/mongodb/bin:${PATH}"
+
+
 export MANPATH="/opt/local/share/man:/opt/local/man:${MANPATH}"
 export LESS='-R'
+export LESSOPEN='| /opt/local/bin/src-hilite-lesspipe.sh %s'
 
+
+
+###plugin###
+#
+#z.sh
+#
+source ~/.zsh/z.sh
+precmd() {
+    _z --add "$(pwd -P)"
+}
 

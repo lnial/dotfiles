@@ -21,6 +21,6 @@ set imdisableactivate
 colorscheme torte 
 "colorscheme peaksea
 "colorscheme getafe
-set transparency=8
+"set transparency=8
 
 
