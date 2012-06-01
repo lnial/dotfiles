@@ -234,7 +234,8 @@ Bundle 'git://github.com/scrooloose/syntastic.git'
 Bundle 'git://github.com/hotoo/template.vim.git'
 Bundle 'git://github.com/sjl/vitality.vim.git'
 Bundle 'sontek/rope-vim'
-
+Bundle 'git://github.com/kien/ctrlp.vim.git'
+Bundle 'git://github.com/tyru/open-browser.vim.git'
 
 "Bundle ''
 
@@ -245,10 +246,7 @@ Bundle 'sontek/rope-vim'
 " Bundle 'git://github.com/Shougo/vimshell.git'
 " Bundle 'git://github.com/Shougo/vimproc.git'
 "
-filetype plugin indent on     " (5)
-
-
-"let g:vimproc_dll_path  = '/Users/lnial/.vim/bundle/vimshell/autoload/proc.so'
+filetype plugin indent on
 
 "------------------------------------
 """taglist option"""
