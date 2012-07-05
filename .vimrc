@@ -40,10 +40,13 @@ set clipboard+=autoselect      " visual selection -> clipboard
 set clipboard+=unnamed         " yank -> clipboard
 "常にカーソルが真ん中になる
 set scrolloff=1000
+
 "カーソルの行と列をハイライト
 set cursorline
 set cursorcolumn
-
+set colorcolumn=80
+"新しいウィンドウを右に開く
+set splitright
 
 "highlight CursorLine term = underline cterm = underline guibg = #ff6347
 
@@ -216,12 +219,12 @@ Bundle 'git://github.com/fuenor/qfixhowm.git'
 Bundle 'git://github.com/vim-scripts/python.vim.git'
 "Bundle 'git://github.com/ujihisa/quickrun.git'
 Bundle 'git://github.com/thinca/vim-quickrun.git'
-Bundle 'git://github.com/vim-scripts/ref.vim.git'
+Bundle 'git://github.com/thinca/vim-ref.git'
 Bundle 'git://github.com/vim-scripts/cursoroverdictionary.git'
 Bundle 'git://github.com/vim-scripts/CTAGS-Highlighting.git'
 Bundle 'git://github.com/vim-scripts/python_fold.git'
 Bundle 'git://github.com/mileszs/ack.vim.git'
-Bundle 'git://github.com/fs111/pydoc.vim.git'
+"Bundle 'git://github.com/fs111/pydoc.vim.git'
 Bundle 'git://github.com/nathanaelkane/vim-indent-guides.git'
 Bundle 'git://github.com/Shougo/vimfiler.git'
 Bundle 'git://github.com/h1mesuke/vim-alignta.git'
@@ -236,6 +239,11 @@ Bundle 'git://github.com/sjl/vitality.vim.git'
 Bundle 'sontek/rope-vim'
 Bundle 'git://github.com/kien/ctrlp.vim.git'
 Bundle 'git://github.com/tyru/open-browser.vim.git'
+Bundle 'git://github.com/alfredodeza/pytest.vim.git'
+Bundle 'git://github.com/msanders/cocoa.vim.git'
+Bundle 'git://github.com/yuratomo/w3m.vim.git'
+"Bundle 'git://github.com/tpope/vim-fugitive.git'
+"Bundle 'git://github.com/klen/python-mode.git'
 
 "Bundle ''
 
@@ -243,7 +251,7 @@ Bundle 'git://github.com/tyru/open-browser.vim.git'
 "Bundle 'git://github.com/djmitche/pyflakes-vim.git'
 
 " " non github repos
-" Bundle 'git://github.com/Shougo/vimshell.git'
+Bundle 'git://github.com/Shougo/vimshell.git'
 " Bundle 'git://github.com/Shougo/vimproc.git'
 "
 filetype plugin indent on
@@ -253,6 +261,7 @@ filetype plugin indent on
 "------------------------------------
 let Tlist_Use_Right_Window = 1
 let Tlist_File_Fold_Auto_Close = 1
+let tlist_objc_settings = 'objc;P:protocols;i:interfaces;I:implementations;M:instance methods;C:implementation methods;Z:protocol methods'
 
 "------------------------------------
 """QFixHown"""
@@ -471,9 +480,13 @@ hi IndentGuidesEven guibg = green ctermbg = 4
 "------------------------------------
 "quickrun.vim
 "------------------------------------
-"let g:quickrun_config  =  {
-  "'*': {'runmode': 'async:remote:vimproc'}, 
-"}
+let g:quickrun_config  =  {}
+let g:quickrun_config['_']  =  {}
+let g:quickrun_config['_']['runner']  =  'vimproc'
+let g:quickrun_config['_']['runner/vimproc/updatetime']  =  100
+let g:quickrun_config['_'] = {'runmode': "async:remote:vimproc",  'split': 'below'}
+"let g:quickrun_config      = {}
+"let g:quickrun_config._    = {'runner' : 'vimproc'}
 
 "------------------------------------
 "tasklist.vim
@@ -483,12 +496,25 @@ nnorem ,l :TaskList<CR>
 "------------------------------------
 "pydoc.vim
 "------------------------------------
-let g:pydoc_cmd  =  "/usr/bin/pydoc"
+let g:pydoc_cmd = "/Users/lnial/bin/pydoc"
+let g:ref_open  =  'vsplit'
+
 
 "------------------------------------
 "syntastic.vim
 "------------------------------------
 let g:syntastic_enable_signs = 1
 let g:syntastic_auto_loc_list = 2
+
+"------------------------------------
+"Vimshell.vim
+"------------------------------------
+",is:
+nnoremap <silent> ,is :VimShell<CR>
+let g:vimshell_split_command = "vsplit"
+
+"------------------------------------
+"python-mode.vim
+"------------------------------------
 
 "}}}
