@@ -7,12 +7,13 @@
 # http://curiousabt.blog27.fc2.com/blog-entry-65.html
 export LANG=ja_JP.UTF-8
 export LESSCHARSET=utf-8
-
+export python="/Users/lnial/bin/python"
 
 ## Backspace key
+#bindkey "^?" backward-delete-char
 #
-bindkey "^?" backward-delete-char
-
+#
+#
 ## Default shell configuration
 #
 # set prompt
@@ -202,7 +203,7 @@ setopt extended_glob
 #   to end of it)
 #
 bindkey -e
-
+#bindkey -v
 # historical backward/forward search with linehead string binded to ^P/^N
 #
 autoload history-search-end
@@ -302,6 +303,10 @@ setopt path_dirs
 # コマンドラインがどのように展開され実行されたかを表示するようになる
 #setopt xtrace
 
+#処理の詳細表
+REPORTTIME=3
+
+
 # ^でcd ..する
 function cdup() {
 echo
@@ -322,8 +327,8 @@ zstyle ':zle:*' word-chars " _-./;@"
 zstyle ':zle:*' word-style unspecified
 
 # URLをコピペしたときに自動でエスケープ
-autoload -Uz url-quote-magic
-zle -N self-insert url-quote-magic
+#autoload -Uz url-quote-magic
+#zle -N self-insert url-quote-magic
 
 # 勝手にpushd
 setopt autopushd
@@ -692,4 +697,16 @@ source ~/.zsh/z.sh
 precmd() {
     _z --add "$(pwd -P)"
 }
+
+#=============================
+# source auto-fu.zsh
+#=============================
+#if [ -f ~/.zsh/auto-fu.zsh ]; then
+#source ~/.zsh/auto-fu.zsh
+    #function zle-line-init () {
+        #auto-fu-init
+    #}
+    #zle -N zle-line-init
+    #zstyle ':completion:*' completer _oldlist _complete
+#fi
 

@@ -76,6 +76,11 @@ nmap ,w :cw<CR>
 "hi Pmenu        ctermfg=Black ctermbg=Grey
 "hi PmenuSel     ctermbg=Blue
 "hi PmenuSbar    ctermbg=Cyan
+augroup HighlightTrailingSpaces
+    autocmd!
+    autocmd VimEnter, WinEnter, ColorScheme * highlight TrailingSpaces term = underline guibg = Red ctermbg = Red
+    autocmd VimEnter, WinEnter * match TrailingSpaces /\s\ + $/
+augroup END
 
 "}}}
 
@@ -130,7 +135,7 @@ nnoremap ,s :source ~/.vimrc<CR>
 nnoremap ,t :Tlist<CR>
 nnoremap ,m :make<CR>
 nnoremap <silent> <Leader>/ :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
-nnoremap <silent> <Leader>g :vimgrep /main/j **/*.
+nnoremap <silent> <Leader>g :vimgrep /hoge/j **/*.
 nnoremap <silent> <Leader>o :!open -a iTerm ./<CR>
 "folding
 nnoremap <Leader>z zMzvzz
@@ -178,7 +183,6 @@ endfunction
 
 
 "python
-autocmd filetype python :nmap <F3> :PythonFindDefinition<CR>
 autocmd filetype py :imap ; :
 augroup SetShebang
     autocmd! SetShebang
@@ -220,7 +224,6 @@ Bundle 'git://github.com/vim-scripts/python.vim.git'
 "Bundle 'git://github.com/ujihisa/quickrun.git'
 Bundle 'git://github.com/thinca/vim-quickrun.git'
 Bundle 'git://github.com/thinca/vim-ref.git'
-Bundle 'git://github.com/vim-scripts/cursoroverdictionary.git'
 Bundle 'git://github.com/vim-scripts/CTAGS-Highlighting.git'
 Bundle 'git://github.com/vim-scripts/python_fold.git'
 Bundle 'git://github.com/mileszs/ack.vim.git'
@@ -237,11 +240,12 @@ Bundle 'git://github.com/scrooloose/syntastic.git'
 Bundle 'git://github.com/hotoo/template.vim.git'
 Bundle 'git://github.com/sjl/vitality.vim.git'
 Bundle 'sontek/rope-vim'
-Bundle 'git://github.com/kien/ctrlp.vim.git'
 Bundle 'git://github.com/tyru/open-browser.vim.git'
 Bundle 'git://github.com/alfredodeza/pytest.vim.git'
 Bundle 'git://github.com/msanders/cocoa.vim.git'
 Bundle 'git://github.com/yuratomo/w3m.vim.git'
+Bundle 'git://github.com/majutsushi/tagbar.git'
+Bundle 'git://github.com/spolu/dwm.vim.git'
 "Bundle 'git://github.com/tpope/vim-fugitive.git'
 "Bundle 'git://github.com/klen/python-mode.git'
 
@@ -306,12 +310,12 @@ function! ChangeLogPrintTimeStamp()
 endfunction
 
 "{{{" YankRing.vim
-nnoremap <silent> <F6> :YRShow<cr>
-function! YRRunAfterMaps()
-    nnoremap Y :<C-U>YRYankCount 'y$'<CR>
-    omap <expr> L YRMapsExpression("",  "$")
-    omap <expr> H YRMapsExpression("",  "^")
-endfunction
+"nnoremap <silent> <F6> :YRShow<cr>
+"function! YRRunAfterMaps()
+    "nnoremap Y :<C-U>YRYankCount 'y$'<CR>
+    "omap <expr> L YRMapsExpression("",  "$")
+    "omap <expr> H YRMapsExpression("",  "^")
+"endfunction
 
 " }}}
 "
@@ -327,10 +331,12 @@ vmap \ "+y
 "------------------------------------
 let g:unite_source_file_mru_time_format = ''
 let g:unite_enable_start_insert = 1
+let g:unite_source_history_yank_enable = 1
 let g:unite_source_file_mru_ignore_pattern='.*\/$\|.*Application\ Data.*'
 nnoremap ,<C-r>  :<C-u>Unite file_mru<CR>
 nnoremap ,<C-b>  :<C-u>Unite buffer <CR>
 nnoremap ,<C-d>  :<C-u>Unite file<CR>
+nnoremap ,<C-g>  :<C-u>Unite grep<CR>
 nnoremap ,\  :<C-u>Unite buffer <CR>
 nnoremap [I  :<C-u>UniteWithCursorWord -no-quit line<CR>
 "nnoremap <silent> <Leader>b :<C-u>Unite bookmark<CR>
@@ -441,24 +447,24 @@ let g:pyflakes_use_quickfix  =  1
 filetype on            " enables filetype detection
 filetype plugin on     " enables filetype specific plugins
 
-"------------------------------------
-"gtags.vim
-"------------------------------------
-" gtags
-" 検索結果Windowを閉じる
-nnoremap <C-q> <C-w><C-w><C-w>q
-" Grep 準備
-nnoremap <C-g> :Gtags -g
-" このファイルの関数一覧
-nnoremap <C-l> :Gtags -f %<CR>
-" カーソル以下の定義元を探す
-nnoremap <C-j> :Gtags <C-r><C-w><CR>
-" カーソル以下の使用箇所を探す
-nnoremap <C-k> :Gtags -r <C-r><C-w><CR>
-" 次の検索結果
-nnoremap <C-n> :cn<CR>
-" 前の検索結果
-nnoremap <C-p> :cp<CR>
+""   "------------------------------------
+""   "gtags.vim
+""   "------------------------------------
+""   " gtags
+""   " 検索結果Windowを閉じる
+""   nnoremap <C-q> <C-w><C-w><C-w>q
+""   " Grep 準備
+""   nnoremap <C-g> :Gtags -g
+""   " このファイルの関数一覧
+""   nnoremap <C-l> :Gtags -f %<CR>
+""   " カーソル以下の定義元を探す
+""   nnoremap <C-j> :Gtags <C-r><C-w><CR>
+""   " カーソル以下の使用箇所を探す
+""   nnoremap <C-k> :Gtags -r <C-r><C-w><CR>
+""   " 次の検索結果
+""   nnoremap <C-n> :cn<CR>
+""   " 前の検索結果
+""   nnoremap <C-p> :cp<CR>
 
 "------------------------------------
 "eclim.vim
@@ -480,6 +486,7 @@ hi IndentGuidesEven guibg = green ctermbg = 4
 "------------------------------------
 "quickrun.vim
 "------------------------------------
+"map <Leader>r :quickrun<CR>
 let g:quickrun_config  =  {}
 let g:quickrun_config['_']  =  {}
 let g:quickrun_config['_']['runner']  =  'vimproc'
@@ -514,7 +521,12 @@ nnoremap <silent> ,is :VimShell<CR>
 let g:vimshell_split_command = "vsplit"
 
 "------------------------------------
-"python-mode.vim
+"Tagbar.vim
 "------------------------------------
+" toggle Tagbar display
+map <F4> :TagbarToggle<CR>
+" autofocus on Tagbar open
+let g:tagbar_autofocus = 1
+
 
 "}}}
