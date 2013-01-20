@@ -140,19 +140,30 @@ nnoremap <silent> <Leader>o :!open -a iTerm ./<CR>
 "folding
 nnoremap <Leader>z zMzvzz
 
+"mark
+"nnoremap ' <Space>
+nnoremap <Space> '
+
 "move window"
 nnoremap { 4<c-w>>  
 nnoremap } 4<c-w><   
 nnoremap + 4<c-w>+ 
 nnoremap - 4<c-w>-
 "not recoard"
-nnoremap q :q<CR>
+"nnoremap q :q<CR>
 
 "" Vim(Mac)Copy&Paste
 nmap - :set paste<CR>:r !pbpaste<CR>:set nopaste<CR>
 nmap _ :.w !pbcopy<CR><CR>
 vmap _ :w !pbcopy<CR><CR>
 
+augroup MyXML
+    autocmd!
+    autocmd Filetype xml inoremap <buffer> </ </<C-x><C-o>
+    autocmd Filetype html inoremap <buffer> </ </<C-x><C-o>
+    autocmd Filetype eruby inoremap <buffer> </ </<C-x><C-o>
+    autocmd Filetype php inoremap <buffer> </ </<C-x><C-o>
+augroup END
 
 "}}}
 
@@ -225,29 +236,34 @@ Bundle 'git://github.com/vim-scripts/python.vim.git'
 Bundle 'git://github.com/thinca/vim-quickrun.git'
 Bundle 'git://github.com/thinca/vim-ref.git'
 Bundle 'git://github.com/vim-scripts/CTAGS-Highlighting.git'
-Bundle 'git://github.com/vim-scripts/python_fold.git'
-Bundle 'git://github.com/mileszs/ack.vim.git'
+"Bundle 'git://github.com/vim-scripts/python_fold.git'
+"Bundle 'git://github.com/mileszs/ack.vim.git'
 "Bundle 'git://github.com/fs111/pydoc.vim.git'
 Bundle 'git://github.com/nathanaelkane/vim-indent-guides.git'
 Bundle 'git://github.com/Shougo/vimfiler.git'
 Bundle 'git://github.com/h1mesuke/vim-alignta.git'
 Bundle 'git://github.com/plasticboy/vim-markdown.git'
 Bundle 'git://github.com/Lokaltog/vim-powerline.git'
-Bundle 'git://github.com/larssmit/vim-getafe.git'
+"Bundle 'git://github.com/larssmit/vim-getafe.git'
 Bundle 'git://github.com/Shougo/vimproc.git'
 Bundle 'TaskList.vim'
 Bundle 'git://github.com/scrooloose/syntastic.git'
-Bundle 'git://github.com/hotoo/template.vim.git'
+"Bundle 'git://github.com/hotoo/template.vim.git'
 Bundle 'git://github.com/sjl/vitality.vim.git'
-Bundle 'sontek/rope-vim'
+"Bundle 'sontek/rope-vim'
 Bundle 'git://github.com/tyru/open-browser.vim.git'
 Bundle 'git://github.com/alfredodeza/pytest.vim.git'
-Bundle 'git://github.com/msanders/cocoa.vim.git'
-Bundle 'git://github.com/yuratomo/w3m.vim.git'
+"Bundle 'git://github.com/msanders/cocoa.vim.git'
+"Bundle 'git://github.com/yuratomo/w3m.vim.git'
 Bundle 'git://github.com/majutsushi/tagbar.git'
-Bundle 'git://github.com/spolu/dwm.vim.git'
+"Bundle 'git://github.com/spolu/dwm.vim.git'
 "Bundle 'git://github.com/tpope/vim-fugitive.git'
 "Bundle 'git://github.com/klen/python-mode.git'
+Bundle 'JavaScript-syntax'
+Bundle 'pangloss/vim-javascript'
+Bundle 'scrooloose/syntastic.git'
+Bundle 'ack.vim'
+Bundle 'git://github.com/tsukkee/unite-tag.git'
 
 "Bundle ''
 
@@ -286,7 +302,8 @@ let SubWindow_Title = '~/__submenu__.howm'
 "サブメニューの幅指定
 let SubWindow_Width = 40
 " タイトル記号
-let QFixHowm_Title = '#'
+let QFixHowm_Title = '='
+"autocmd Filetype mkd inoremap <CR> <Space><Space><CR>
 
 "------------------------------------
 "change pwd "
@@ -371,6 +388,8 @@ endfunction
 "------------------------------------
 let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_enable_underbar_completion = 1
+let g:neocomplcache_auto_completion_start_length = 10
+
 
 "neocomplcache snippet
 imap <C-k> <Plug>(neocomplcache_snippets_expand)
@@ -492,6 +511,13 @@ let g:quickrun_config['_']  =  {}
 let g:quickrun_config['_']['runner']  =  'vimproc'
 let g:quickrun_config['_']['runner/vimproc/updatetime']  =  100
 let g:quickrun_config['_'] = {'runmode': "async:remote:vimproc",  'split': 'below'}
+let g:quickrun_config.markdown  =  {
+            \ 'outputter' : 'null',
+            \ 'command'   : 'open',
+            \ 'cmdopt'    : '-a',
+            \ 'args'      : 'Marked',
+            \ 'exec'      : '%c %o %a %s',
+            \ }
 "let g:quickrun_config      = {}
 "let g:quickrun_config._    = {'runner' : 'vimproc'}
 
@@ -503,8 +529,8 @@ nnorem ,l :TaskList<CR>
 "------------------------------------
 "pydoc.vim
 "------------------------------------
-let g:pydoc_cmd = "/Users/lnial/bin/pydoc"
-let g:ref_open  =  'vsplit'
+let g:pydoc_cmd='/Users/lnial/bin/pydoc'
+let g:ref_open='vsplit'
 
 
 "------------------------------------
@@ -529,4 +555,58 @@ map <F4> :TagbarToggle<CR>
 let g:tagbar_autofocus = 1
 
 
+"------------------------------------
+"syntastic.vim
+"------------------------------------
+let g:syntastic_enable_signs = 1
+let g:syntastic_auto_loc_list = 2
+let g:syntastic_mode_map  =  {
+      \  'mode': 'active', 
+      \ 'active_filetypes': ['ruby',  'javascript'], 
+      \ 'passive_filetypes': []
+      \ }
+
+"------------------------------------
+"jscomplete.vim
+"------------------------------------
+
+
+"------------------------------------
+"unite-tag.vim
+"------------------------------------
+" path にヘッダーファイルのディレクトリを追加することで
+" neocomplcache が include 時に tag ファイルを作成してくれる
+set path+=$LIBSTDCPP
+set path+=$BOOST_LATEST_ROOT
+
+" neocomplcache が作成した tag ファイルのパスを tags に追加する
+function! s:TagsUpdate()
+    " include している tag ファイルが毎回同じとは限らないので毎回初期化
+    setlocal tags=
+    for filename in neocomplcache#sources#include_complete#get_include_files(bufnr('%'))
+        execute "setlocal tags+=".neocomplcache#cache#encode_name('tags_output', filename)
+    endfor
+endfunction
+
+
+command!
+    \ -nargs=? PopupTags
+    \ call <SID>TagsUpdate()
+    \ |Unite tag:<args>
+
+function! s:get_func_name(word)
+    let end = match(a:word, '<\|[\|(')
+    return end == -1 ? a:word : a:word[ : end-1 ]
+endfunction
+
+
+" カーソル下のワード(word)で絞り込み
+noremap <silent> g<C-]> :<C-u>execute "PopupTags ".expand('<cword>')<CR>
+
+" カーソル下のワード(WORD)で ( か < か [ までが現れるまでで絞り込み
+" 例)
+" boost::array<std::stirng... → boost::array で絞り込み
+noremap <silent> G<C-]> :<C-u>execute "PopupTags "
+    \.substitute(<SID>get_func_name(expand('<cWORD>')), '\:', '\\\:', "g")<CR>
 "}}}
+

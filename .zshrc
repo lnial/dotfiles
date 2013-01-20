@@ -1,4 +1,4 @@
-# users generic .zshrc file for zsh(1)
+﻿# users generic .zshrc file for zsh(1)
 
 
 ## Environment variable configuration
@@ -78,7 +78,7 @@ local NORMAL_COLOR="$ESCX"m
 autoload -Uz add-zsh-hook
 autoload -Uz vcs_info
 
-zstyle ':vcs_info:*' enable git svn hg bzr
+#zstyle ':vcs_info:*' enable git svn hg bzr
 zstyle ':vcs_info:*' formats '(%s)-[%b]'
 zstyle ':vcs_info:*' actionformats '(%s)-[%b|%a]'
 zstyle ':vcs_info:(svn|bzr):*' branchformat '%b:r%r'
@@ -666,12 +666,12 @@ function __rm_single_file(){
 #
 export LC_ALL=en_US.UTF-8 
 export LANG=en_US.UTF-8
-alias hg="hg --encoding=utf-8"
+#alias hg="hg --encoding=utf-8"
 
-export http_proxy="http://192.168.2.1/proxy.pac"
-export http_proxy="http://proxy.ritsumei.ac.jp:3128"
-export https_proxy="https://proxy.ritsumei.ac.jp:443"
-export ftp_proxy="http://proxy.ritsumei.ac.jp:3128"
+#export http_proxy="http://192.168.2.1/proxy.pac"
+#export http_proxy="http://proxy.ritsumei.ac.jp:3128"
+#export https_proxy="https://proxy.ritsumei.ac.jp:443"
+#export ftp_proxy="http://proxy.ritsumei.ac.jp:3128"
 
 
 ##export PATH=$PATH:/Applications/android-sdk-mac_86/platform-tools
@@ -679,8 +679,9 @@ export PATH="/opt/local/bin:/opt/local/sbin:${PATH}"
 export PATH="/usr/local/mysql/bin/:${PATH}"
 export PATH="/usr/local/bin:${PATH}"
 export PATH="/Users/lnial/bin:${PATH}"
-export PATH="~/lib/pypy/bin:${PATH}"
-export PATH="~/Library/mongodb/bin:${PATH}"
+export PATH="/Users/lnial/lib/pypy/bin:${PATH}"
+export PATH="/Users/lnial/Library/mongodb/bin:${PATH}"
+export PATH="/Users/lnial/.nave/installed/0.9.1/bin:${PATH}"
 
 
 export MANPATH="/opt/local/share/man:/opt/local/man:${MANPATH}"
@@ -699,7 +700,7 @@ precmd() {
 }
 
 #=============================
-# source auto-fu.zsh
+# auto-fu.zsh
 #=============================
 #if [ -f ~/.zsh/auto-fu.zsh ]; then
 #source ~/.zsh/auto-fu.zsh
@@ -709,4 +710,65 @@ precmd() {
     #zle -N zle-line-init
     #zstyle ':completion:*' completer _oldlist _complete
 #fi
+#=============================
+# zaw.zsh
+#=============================
+source ~/.zsh/zaw/zaw.zsh
+#bindkey '^b^h' zaw-history
+
+export SVN_EDITOR=vim
+
+function zle-line-init-pow zle-keymap-select {
+    vimode="${${KEYMAP/vicmd/NORMAL}/(main|viins)/INSERT}"
+
+    # update status line
+
+    if [ -n "$TMUX" ]; then
+        # tmux
+        if [ $vimode = "NORMAL" ]; then
+            statbg="colour236"
+            statfg="colour247"
+            statl1bg="colour240"
+            statl1fg="colour231"
+            statl2bg="colour148"
+            statl2fg="colour22"
+            statr1bg="colour240"
+            statr1fg="colour247"
+            statr2bg="colour252"
+            statr2fg="colour236"
+        else
+            statbg="colour24"
+            statfg="colour117"
+            statl1bg="colour31"
+            statl1fg="colour231"
+            statl2bg="colour231"
+            statl2fg="colour23"
+            statr1bg="colour31"
+            statr1fg="colour117"
+            statr2bg="colour117"
+            statr2fg="colour23"
+        fi
+
+        tmux set -g status-bg ${statbg} > /dev/null
+        tmux set -g status-fg ${statfg} > /dev/null
+        statl1="#[bg=${statl1bg}, fg=${statl1fg}] #H "
+        statl1a="#[bg=${statbg}, fg=${statl1bg}]"
+        statl2="#[bg=${statl2bg}, fg=${statl2fg}] $vimode "
+        statl2a="#[bg=${statl1bg}, fg=${statl2bg}]"
+        tmux set -g status-left "${statl2}${statl2a}${statl1}${statl1a}" > /dev/null
+        statr1="#[bg=${statr1bg}, fg=${statr1fg}] #($HOME/.battery) "
+        statr1a="#[bg=${statbg}, fg=${statr1bg}]"
+        statr2="#[bg=${statr2bg}, fg=${statr2fg}] %Y-%m-%d(%a) %H:%M "
+        statr2a="#[bg=${statr1bg}, fg=${statr2bg}]"
+        tmux set -g status-right "${statr1a}${statr1}${statr2a}${statr2}" > /dev/null
+
+    else
+        # zsh
+        showmode $vimode
+    fi
+
+}
+zle -N zle-line-init-pow
+zle -N zle-keymap-select  
+  
 
