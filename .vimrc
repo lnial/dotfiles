@@ -200,6 +200,10 @@ augroup SetShebang
     autocmd BufNewFile *.py 0put =\"# -*- encoding: UTF-8 -*-\"|$
 augroup END
 
+"JAVA自動補完(javacomplete)
+autocmd FileType java :setlocal omnifunc=javacomplete#Complete
+autocmd FileType java :setlocal completefunc=javacomplete#CompleteParamsInfo
+autocmd FileType java map <C-c> :call JCommentWriter()<CR>
 
 
 "}}}
@@ -264,6 +268,10 @@ Bundle 'pangloss/vim-javascript'
 Bundle 'scrooloose/syntastic.git'
 Bundle 'ack.vim'
 Bundle 'git://github.com/tsukkee/unite-tag.git'
+Bundle 'git://github.com/vim-scripts/java.vim.git'
+Bundle 'git://github.com/vim-scripts/jcommenter.vim.git'
+Bundle 'git://github.com/vim-scripts/javacomplete.git'
+
 
 "Bundle ''
 
@@ -518,8 +526,10 @@ let g:quickrun_config.markdown  =  {
             \ 'args'      : 'Marked',
             \ 'exec'      : '%c %o %a %s',
             \ }
-"let g:quickrun_config      = {}
-"let g:quickrun_config._    = {'runner' : 'vimproc'}
+let g:quickrun_config.java = {
+            \ "cmdopt" : "-encoding utf-8",
+            \}
+
 
 "------------------------------------
 "tasklist.vim
